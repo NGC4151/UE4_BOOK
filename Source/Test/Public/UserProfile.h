@@ -33,6 +33,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float Health;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		FString Name;
 

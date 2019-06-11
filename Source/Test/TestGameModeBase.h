@@ -5,18 +5,26 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "UserProfile.h"
+#include "MyActor.h"
 #include "TestGameModeBase.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class TEST_API ATestGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-public:
-	void BeginPlay();
+protected:
+
+virtual	void BeginPlay()override;
+
+UPROPERTY()
+AMyActor* SpawningActor;
+
+UFUNCTION()
+void DestroyActorFunction();
+
+FTimerHandle TimerHandle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UClassNmaes)
 		TSubclassOf<UUserProfile>UPBlueprintClassName;
