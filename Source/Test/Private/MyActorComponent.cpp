@@ -5,11 +5,11 @@
 // Sets default values for this component's properties
 UMyActorComponent::UMyActorComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
+	
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	MovementRadius = 5.0f;
+
 }
 
 
@@ -17,9 +17,6 @@ UMyActorComponent::UMyActorComponent()
 void UMyActorComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
 }
 
 
@@ -28,6 +25,18 @@ void UMyActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	AActor* CompOwner = GetOwner();
+
+	if (CompOwner)
+	{
+		auto NewPos = CompOwner->GetActorLocation() + FVector(
+			FMath::FRandRange(-1, 1)*MovementRadius,
+			FMath::FRandRange(-1, 1)*MovementRadius,
+			FMath::FRandRange(-1, 1)*MovementRadius);
+
+		CompOwner->SetActorLocation(NewPos);
+	}
+
+
 }
 

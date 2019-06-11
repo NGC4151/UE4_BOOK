@@ -3,25 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "MyActorComponent.generated.h"
+#include "Components/SceneComponent.h"
+#include "SpawnActor.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TEST_API UMyActorComponent : public UActorComponent
+class TEST_API USpawnActor : public USceneComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UMyActorComponent();
+	USpawnActor();
 
-	UPROPERTY()
-		float MovementRadius;
+	UFUNCTION(BlueprintCallable, Category = Spawner)
+		void Spawner();
+	UPROPERTY(EditAnywhere, Category = Spawner)
+		TSubclassOf<AActor>ActorToSpawn;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	FTimerHandle SpawnHandle;
+
+	
 
 public:	
 	// Called every frame
