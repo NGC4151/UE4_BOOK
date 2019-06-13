@@ -4,6 +4,12 @@
 #include "UserProfile.h"
 #include "MyActor.h"
 #include "Test.h"
+#include "InventoryCharacter.h"
+
+ATestGameModeBase::ATestGameModeBase()
+{
+	DefaultPawnClass = AInventoryCharacter::StaticClass();
+}
 
 void ATestGameModeBase::BeginPlay()
 {

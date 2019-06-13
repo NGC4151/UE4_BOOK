@@ -24,13 +24,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere,Category=Comp)
+	UPROPERTY(VisibleAnywhere,Category="Comp")
 		UStaticMeshComponent* MeshComp;
-	UPROPERTY(VisibleAnywhere, Category = Comp)
+	UPROPERTY(VisibleAnywhere, Category = "Comp")
 		UStaticMeshComponent* MeshComp2;
-	UPROPERTY(VisibleAnywhere, Category = Comp)
+	UPROPERTY(VisibleAnywhere, Category = "Comp")
 		USceneComponent* SceneComp;
-	UPROPERTY(VisibleAnywhere, Category = Comp)
+	UPROPERTY(VisibleAnywhere, Category = "Comp")
 		USceneComponent* ChidSceneComp;
 
 public:	
