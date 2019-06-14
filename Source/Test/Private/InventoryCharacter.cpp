@@ -85,6 +85,7 @@ void AInventoryCharacter::Tick(float DeltaTime)
 		FVector InputVector = FVector(0, 0, 0);
 		InputVector += GetActorForwardVector()*MovementInput.X*DeltaTime;
 		InputVector += GetActorRightVector()*MovementInput.Y*DeltaTime;
+		GetCharacterMovement()->AddInputVector(InputVector);
 
 	}
 
