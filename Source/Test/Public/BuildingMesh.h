@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "BuildingMesh.generated.h"
 
+class UParticleSystemComponent;
+
 UCLASS()
 class TEST_API ABuildingMesh : public AActor
 {
@@ -22,5 +24,33 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	/** Mesh组件 */
+	UPROPERTY()
+	UStaticMeshComponent* MeshComp;
+
+	/** Spawn的粒子效果 */
+	UPROPERTY()
+	UParticleSystemComponent* SpawnEffect;
+
+	/** 要Spawn的类 */
+	UPROPERTY()
+	UClass* UnitToSpawn;
+
+	/** Spawn的时间间隔 */
+	UPROPERTY()
+	float SpawnInterval;
+
+	/** Spawn函数，执行具体的Spawn操作 */
+	UFUNCTION()
+	void SpawnUnit();
+
+	UFUNCTION()
+	void EndPlay(const EEndPlayReason::Type EEndPlayReason)override;
+
+	UPROPERTY()
+	FTimerHandle SpawnTimeHandle;
+
+
 
 };
