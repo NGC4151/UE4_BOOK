@@ -10,13 +10,13 @@ ASpawnCharactor::ASpawnCharactor()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	VisualRepresentation = CreateDefaultSubobject<UParticleSystemComponent>("SpawnPoint");
-	auto ParticleSystem= ConstructorHelpers::FObjectFinder<UParticleSystem>(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Fire.P_Fire'"));
-if (ParticleSystem.Object!=nullptr)
+	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>("SpawnMesh");
+	auto MeshAsset= ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
+if (MeshAsset.Object!=nullptr)
 {
-	VisualRepresentation->SetTemplate(ParticleSystem.Object);
+	MeshComp->SetStaticMesh(MeshAsset.Object);
 }
-VisualRepresentation->SetRelativeScale3D(FVector(0.5, 0.5, 0.5));
+MeshComp->SetupAttachment(RootComponent);
 SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 }
@@ -25,8 +25,11 @@ SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 void ASpawnCharactor::BeginPlay()
 {
 	Super::BeginPlay();
-	VisualRepresentation->SetupAttachment(RootComponent);
+	SetActorRotation(FRotator(0,0,FMath::RandRange(0,90)));
+	RandomDirection = FVector(FMath::RandRange(0, 90), FMath::RandRange(0, 90), 0);
+	SetLifeSpan(10.0f);
 	
+
 }
 
 // Called every frame
@@ -34,7 +37,7 @@ void ASpawnCharactor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	SetActorLocation(GetActorLocation() + FVector(10, 0, 0));
+	SetActorLocation(GetActorLocation() + RandomDirection);
 
 }
 

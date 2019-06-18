@@ -11,9 +11,10 @@ ABuildingMesh::ABuildingMesh()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	SpawnInterval = 10.0;
+	SpawnInterval = 5.0;
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>("MeshComp");
+	RootComponent = MeshComp;
 	SpawnEffect = CreateDefaultSubobject<UParticleSystemComponent>("SpawnEffect");
 
 	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
@@ -36,9 +37,8 @@ ABuildingMesh::ABuildingMesh()
 void ABuildingMesh::BeginPlay()
 {
 	Super::BeginPlay();
-	RootComponent = MeshComp;
 	SpawnEffect->SetupAttachment(RootComponent);
-	SpawnEffect->SetRelativeScale3D(FVector(150,0,0));
+	SpawnEffect->SetRelativeLocation(FVector(150,0,0));
 	GetWorld()->GetTimerManager().SetTimer(SpawnTimeHandle, this, &ABuildingMesh::SpawnUnit, SpawnInterval, true);
 
 	
@@ -53,8 +53,10 @@ void ABuildingMesh::Tick(float DeltaTime)
 
 void ABuildingMesh::SpawnUnit()
 {
-	FVector SpawnLocation = SpawnEffect->GetComponentLocation();
-	GetWorld()->SpawnActor(UnitToSpawn, &SpawnLocation);
+	
+	FVector SpawnLocation = FVector(0, 0, 0);
+	GetWorld()->SpawnActor(UnitToSpawn,&SpawnLocation);
+	
 }
 
 void ABuildingMesh::EndPlay(const EEndPlayReason::Type EndPlayReason)
