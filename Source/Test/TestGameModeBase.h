@@ -8,12 +8,15 @@
 #include "MyActor.h"
 #include "TestGameModeBase.generated.h"
 
-
+DECLARE_DELEGATE(FStandarDelegateSignature)
 UCLASS()
 class TEST_API ATestGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 		ATestGameModeBase();
+
+public:
+	FStandarDelegateSignature MyStandarDelegate;
 	
 protected:
 
