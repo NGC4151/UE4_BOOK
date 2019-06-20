@@ -20,11 +20,15 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	//EndPlay在被销毁时调用，应该是用于善后处理。
+	virtual void EndPlay(const EEndPlayReason::Type EEndPlayReason)override;
 
 	UPROPERTY()
 	UPointLightComponent* PointLightComp;
 	UFUNCTION()
 		void EnableLight();
+	UFUNCTION()
+		void SetLightColor(FLinearColor LightColor,bool EnableLight);
 
 public:	
 	// Called every frame

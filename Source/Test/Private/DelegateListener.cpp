@@ -33,15 +33,40 @@ void ADelegateListener::BeginPlay()
 		if (MyGameMode!=nullptr)
 		{
 			MyGameMode->MyStandarDelegate.BindUObject(this, &ADelegateListener::EnableLight);
+			MyGameMode->MyParamDelegateSignature.BindUObject(this, &ADelegateListener::SetLightColor,true);
 		}
 	}
 
 	
 }
 
+void ADelegateListener::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
+	UWorld* TheWorld = GetWorld();
+	if (TheWorld!=nullptr)
+	{
+		AGameModeBase* GameMode = UGameplayStatics::GetGameMode(TheWorld);
+		ATestGameModeBase* MyGameMode = Cast<ATestGameModeBase>(GameMode);
+		if (MyGameMode!=nullptr)
+		{
+			//解除代理绑定的函数
+			MyGameMode->MyStandarDelegate.Unbind();
+			MyGameMode->MyParamDelegateSignature.Unbind();
+		}
+	}
+}
+
 void ADelegateListener::EnableLight()
 {
 	PointLightComp->SetVisibility(true);
+}
+
+void ADelegateListener::SetLightColor(FLinearColor LightColor,bool EnableLight)
+{
+	PointLightComp->SetLightColor(LightColor);
+	PointLightComp->SetVisibility(false);
 }
 
 // Called every frame

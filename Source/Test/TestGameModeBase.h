@@ -8,7 +8,12 @@
 #include "MyActor.h"
 #include "TestGameModeBase.generated.h"
 
+//标准的代理
 DECLARE_DELEGATE(FStandarDelegateSignature)
+
+//带一个参数的代理
+DECLARE_DELEGATE_OneParam(FParamDelegateSignature,FLinearColor)
+
 UCLASS()
 class TEST_API ATestGameModeBase : public AGameModeBase
 {
@@ -16,8 +21,10 @@ class TEST_API ATestGameModeBase : public AGameModeBase
 		ATestGameModeBase();
 
 public:
+    //代理的实例
 	FStandarDelegateSignature MyStandarDelegate;
-	
+	FParamDelegateSignature MyParamDelegateSignature;
+
 protected:
 
 virtual	void BeginPlay()override;

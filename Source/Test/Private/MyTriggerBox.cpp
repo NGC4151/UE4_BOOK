@@ -40,6 +40,10 @@ void AMyTriggerBox::NotifyActorBeginOverlap(AActor* OtherActor)
 			    然后在TriggerBox里调用代理绑定的代理函数
 			 */
 			MyGameMode->MyStandarDelegate.ExecuteIfBound();
+
+			//带参数的代理，代理的作用：减少类与类、对象与对象之间的互相引用，减少耦合。
+			auto color = FLinearColor(1, 0, 0, 1);
+			MyGameMode->MyParamDelegateSignature.ExecuteIfBound(color);
 		}
 	}
 
