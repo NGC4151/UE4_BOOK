@@ -14,6 +14,9 @@ DECLARE_DELEGATE(FStandarDelegateSignature)
 //带一个参数的代理
 DECLARE_DELEGATE_OneParam(FParamDelegateSignature,FLinearColor)
 
+//多播代理。
+DECLARE_MULTICAST_DELEGATE(FMulticastDelegateSignature)
+
 UCLASS()
 class TEST_API ATestGameModeBase : public AGameModeBase
 {
@@ -24,6 +27,7 @@ public:
     //代理的实例
 	FStandarDelegateSignature MyStandarDelegate;
 	FParamDelegateSignature MyParamDelegateSignature;
+	FMulticastDelegateSignature MyMulticastDelegate;
 
 protected:
 

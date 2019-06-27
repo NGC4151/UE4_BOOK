@@ -45,6 +45,9 @@ void AMyTriggerBox::NotifyActorBeginOverlap(AActor* OtherActor)
 			auto color = FLinearColor(1, 0, 0, 1);
 			MyGameMode->MyParamDelegateSignature.ExecuteIfBound(color);
 		}
+		
+		MyGameMode->MyMulticastDelegate.Broadcast();
+
 	}
 
 }
