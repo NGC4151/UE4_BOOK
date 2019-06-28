@@ -9,7 +9,7 @@ UOrbitingMovementComponent::UOrbitingMovementComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	RotationSpeed = 5.0f;
+	RotationSpeed = 20.0f;
 	OrbitDistance = 100.0f;
 	CurrentValue = 0;
 	bRotateToFaceoutwards = true;
@@ -34,7 +34,7 @@ void UOrbitingMovementComponent::TickComponent(float DeltaTime, ELevelTick TickT
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	float CurrentValueInRadians = FMath::DegreesToRadians<float>(CurrentValue);
-
+	
 	SetRelativeLocation(
 		                   FVector(
 			                         OrbitDistance*FMath::Cos(CurrentValueInRadians),
