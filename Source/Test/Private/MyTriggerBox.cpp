@@ -24,13 +24,14 @@ void AMyTriggerBox::BeginPlay()
 
 void AMyTriggerBox::NotifyActorBeginOverlap(AActor* OtherActor)
 {
+	OnplayerEnter.Broadcast();
+
 	auto Messge = FString::Printf(TEXT("%S Come in~"), *(OtherActor->GetName()));
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Blue, Messge);
 
 	UWorld* TheWorld = GetWorld();
 	if (TheWorld!=nullptr)
 	{
-
 		AGameModeBase* GameMode = UGameplayStatics::GetGameMode(TheWorld);
 		ATestGameModeBase* MyGameMode = Cast<ATestGameModeBase>(GameMode);
 		if (MyGameMode!=nullptr)
@@ -47,9 +48,7 @@ void AMyTriggerBox::NotifyActorBeginOverlap(AActor* OtherActor)
 		}
 		
 		MyGameMode->MyMulticastDelegate.Broadcast();
-
 	}
-
 }
 
 void AMyTriggerBox::NotifyActorEndOverlap(AActor* OtherActor)

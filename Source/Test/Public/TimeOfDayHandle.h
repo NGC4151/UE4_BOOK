@@ -4,34 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyTriggerBox.generated.h"
-
-class UBoxComponent;
-
-DECLARE_EVENT(AMyTriggerBox,FOnPlayerEntered)
+#include "TimeOfDayHandle.generated.h"
 
 UCLASS()
-class TEST_API AMyTriggerBox : public AActor
+class TEST_API ATimeOfDayHandle : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AMyTriggerBox();
-
-	FOnPlayerEntered OnplayerEnter;
+	ATimeOfDayHandle();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	UFUNCTION()
-	virtual void NotifyActorBeginOverlap(AActor* OtherActor)override;
-	UFUNCTION()
-	virtual void NotifyActorEndOverlap(AActor* OtherActor)override;
-
-	UPROPERTY()
-	UBoxComponent* BoxComp;
 
 public:	
 	// Called every frame
