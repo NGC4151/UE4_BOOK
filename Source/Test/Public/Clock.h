@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "Clock.generated.h"
 
+class USceneComponent;
+class UStaticMeshComponent;
+
 UCLASS()
 class TEST_API AClock : public AActor
 {
@@ -14,6 +17,26 @@ class TEST_API AClock : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AClock();
+
+	UPROPERTY()
+		USceneComponent* RootSceneComp;
+	UPROPERTY(EditDefaultsOnly,Category="MeshComp")
+		UStaticMeshComponent* ClockFace;
+	UPROPERTY()
+		USceneComponent* HourHandle;
+	UPROPERTY(EditDefaultsOnly, Category = "MeshComp")
+		UStaticMeshComponent* HourMesh;
+	UPROPERTY()
+		USceneComponent* MinuteHandle;
+	UPROPERTY(EditDefaultsOnly, Category = "MeshComp")
+		UStaticMeshComponent* MinuteMesh;
+	UPROPERTY(EditDefaultsOnly, Category = "MeshComp")
+		UStaticMeshComponent* SecondMesh;
+	UPROPERTY()
+		USceneComponent* SecondHandle;
+	UFUNCTION()
+		void TimeChanged(int32 hours, int32 Minutes,int32 Second);
+	FDelegateHandle MyDelegateHandle;
 
 protected:
 	// Called when the game starts or when spawned

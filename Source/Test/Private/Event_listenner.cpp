@@ -21,6 +21,7 @@ AEvent_listenner::AEvent_listenner()
 	TextShow = CreateDefaultSubobject<UTextRenderComponent>("Text");
 	TextShow->SetupAttachment(RootComponent);
 	TextShow->SetText(TEXT("sadadlaskjdl"));
+	TextShow->SetHorizontalAlignment(EHTA_Center);
 	TextShow->SetTextRenderColor(FColor::Blue);
 	TextShow->SetVisibility(false);
 

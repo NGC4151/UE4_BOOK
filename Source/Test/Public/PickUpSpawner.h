@@ -4,33 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TimeOfDayHandle.generated.h"
+#include "PickUpSpawner.generated.h"
 
-DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnTimeChangeSignature,int32,int32,int32)
+class APickUpActor;
 
 UCLASS()
-class TEST_API ATimeOfDayHandle : public AActor
+class TEST_API APickUpSpawner : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ATimeOfDayHandle();
+	APickUpSpawner();
 
-	FOnTimeChangeSignature OnTimeChanged;
+	UPROPERTY()
+		USceneComponent* SpawnLocation;
+	UFUNCTION()
+		void PickUpCollected();
+	UFUNCTION()
+		void SpawnPickUp();
+	UPROPERTY()
+		APickUpActor* CurrentPickUp;
+
+	FTimerHandle MyTimer;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	UPROPERTY()
-		int32 TimeScale;
-	UPROPERTY()
-		int32 Hours;
-	UPROPERTY()
-		int32 Minutes;
-	UPROPERTY()
-		float ElapsedSeconds;
 
 public:	
 	// Called every frame
