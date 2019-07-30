@@ -11,13 +11,24 @@ ASpawnCharactor::ASpawnCharactor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>("SpawnMesh");
-	auto MeshAsset= ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
-if (MeshAsset.Object!=nullptr)
-{
-	MeshComp->SetStaticMesh(MeshAsset.Object);
-}
-MeshComp->SetupAttachment(RootComponent);
-SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
+	if (MeshAsset.Object != nullptr)
+	{
+		MeshComp->SetStaticMesh(MeshAsset.Object);
+	}
+	MeshComp->SetupAttachment(RootComponent);
+	SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	VisualFX = CreateDefaultSubobject<UParticleSystemComponent>("VisualFX");
+
+	auto SpawnParticle = ConstructorHelpers::FObjectFinder<UParticleSystem>(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Fire.P_Fire'"));
+	if (SpawnParticle.Object != nullptr)
+	{
+		VisualFX->SetTemplate(SpawnParticle.Object);
+	}
+	VisualFX->SetRelativeScale3D(FVector(0.5, 0.5, 0.5));
+	VisualFX->bAutoDestroy = true;
+	VisualFX->SetupAttachment(MeshComp);
 
 }
 
@@ -25,19 +36,14 @@ SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 void ASpawnCharactor::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorRotation(FRotator(0,0,FMath::RandRange(0,90)));
-	RandomDirection = FVector(FMath::RandRange(0, 90), FMath::RandRange(0, 90), 0);
 	SetLifeSpan(10.0f);
-	
-
 }
 
 // Called every frame
 void ASpawnCharactor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	SetActorLocation(GetActorLocation() + RandomDirection);
+	SetActorLocation(GetActorLocation() +FVector(10,0,0));
 
 }
 
@@ -45,6 +51,5 @@ void ASpawnCharactor::Tick(float DeltaTime)
 void ASpawnCharactor::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 

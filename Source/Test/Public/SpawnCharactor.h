@@ -7,6 +7,7 @@
 #include "SpawnCharactor.generated.h"
 
 class UStaticMeshComponent;
+class UParticleSystemComponent;
 
 UCLASS()
 class TEST_API ASpawnCharactor : public ACharacter
@@ -20,17 +21,14 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	FVector RandomDirection;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY()
 		UStaticMeshComponent* MeshComp;
-
-
+	UPROPERTY()
+		UParticleSystemComponent* VisualFX;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

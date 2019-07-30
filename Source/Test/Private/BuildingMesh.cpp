@@ -39,29 +39,28 @@ void ABuildingMesh::BeginPlay()
 	Super::BeginPlay();
 	SpawnEffect->SetupAttachment(RootComponent);
 	SpawnEffect->SetRelativeLocation(FVector(150,0,0));
-	GetWorld()->GetTimerManager().SetTimer(SpawnTimeHandle, this, &ABuildingMesh::SpawnUnit, SpawnInterval, true);
+	GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle, this, &ABuildingMesh::SpawnUnit, SpawnInterval, true);
 
-	
 }
 
 // Called every frame
 void ABuildingMesh::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ABuildingMesh::SpawnUnit()
 {
-	
 	FVector SpawnLocation = FVector(0, 0, 0);
 	GetWorld()->SpawnActor(UnitToSpawn,&SpawnLocation);
+	auto DebugMessge = FString::Printf(TEXT(" %S had Spawn!"), *(UnitToSpawn->GetName()));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue,DebugMessge);
 	
 }
 
 void ABuildingMesh::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	GetWorld()->GetTimerManager().ClearTimer(SpawnTimeHandle);
+	GetWorld()->GetTimerManager().ClearTimer(SpawnTimerHandle);
 }
 
